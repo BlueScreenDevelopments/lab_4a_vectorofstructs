@@ -28,7 +28,11 @@ int randomInRange (mt19937& rng, int lo, int hi){
 //Generate random color
 Color randomColor(mt19937& rng){
     uniform_int_distribution<int> byte(0,255);
-    return Color{ byte(rng), byte(rng), byte(rng)};
+    Color c;
+    c.r = byte(rng);
+    c.g = byte(rng);
+    c.b = byte(rng);
+    return c;    
 }
 
 int main(){
@@ -51,9 +55,30 @@ int main(){
 
     //Formatted Table
     const int wIndex = 5;
-    const int wCOl = 6;
+    const int wCol = 6;
 
+   cout << left
+         << setw(wIndex) << "Color #"   // index column
+         << right
+         << setw(wCol) << "R Value"
+         << setw(wCol) << "G Value"
+         << setw(wCol) << "B Value"
+         << "\n";
 
-    
+    // Print separator line
+    cout << setfill('-')
+         << setw(wIndex + 3 * wCol) << ""
+         << setfill(' ') << "\n";
 
+    // Print each row
+    for (size_t i = 0; i < colors.size(); ++i) {
+        const auto& c = colors[i];
+        cout << left  << setw(wIndex) << i
+             << right << setw(wCol)   << c.r
+             << setw(wCol)            << c.g
+             << setw(wCol)            << c.b
+             << "\n";
+    }
+
+    return 0;
 }
